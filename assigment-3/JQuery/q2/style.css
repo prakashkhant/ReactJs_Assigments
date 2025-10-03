@@ -1,0 +1,117 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  body {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: background 0.8s ease-in-out;
+  }
+  
+  /* Overlay for readability */
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: none;
+  }
+  
+  /* Container */
+  .container {
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    z-index: 2;
+  }
+  
+  /* Card */
+  .card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .card h2 {
+    margin-bottom: 25px;
+    color: #333;
+    font-size: 22px;
+  }
+  
+  /* Input Groups */
+  .input-group {
+    text-align: left;
+    margin-bottom: 20px;
+  }
+  
+  .input-group label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    color: #444;
+  }
+  
+  select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+    transition: 0.3s;
+  }
+  
+  select:focus {
+    border-color: #2a5298;
+    box-shadow: 0 0 8px rgba(42, 82, 152, 0.5);
+  }
+  
+  /* Button */
+  button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    background: linear-gradient(135deg, #2a5298, #1e3c72);
+    color: #fff;
+    transition: 0.3s ease;
+  }
+  
+  button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  
+  button:hover:not(:disabled) {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+  }
+  
+  /* Message */
+  .message {
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    display: none;
+  }
+  

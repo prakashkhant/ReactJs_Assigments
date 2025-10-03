@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Real-time Chat App</title>
+  <link rel="icon" type="image/x-icon" href="../react-icon.svg">
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .chat-container {
+      width: 400px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background: #4a76a8;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      background: #e5ddd5;
+    }
+
+    .message {
+      margin-bottom: 12px;
+      padding: 8px 12px;
+      border-radius: 20px;
+      max-width: 70%;
+      word-wrap: break-word;
+    }
+
+    .message.user {
+      background: #dcf8c6;
+      align-self: flex-end;
+    }
+
+    .message.bot {
+      background: #fff;
+      align-self: flex-start;
+    }
+
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #ccc;
+      background: #f1f1f1;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+    }
+
+    .chat-input button {
+      padding: 12px 20px;
+      border: none;
+      background: #4a76a8;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .chat-input button:hover {
+      background: #3b5c8c;
+    }
+  </style>
+</head>
+<body>
+
+<div class="chat-container">
+  <div class="chat-header">Real-time Chat</div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="chat-input">
+    <input type="text" id="messageInput" placeholder="Type a message...">
+    <button id="sendBtn">Send</button>
+  </div>
+</div>
+
+<script>
+$(document).ready(function() {
+  let messages = []; // stores chat messages
+
+  function displayMessages() {
+    const chat = $("#chatMessages");
+    chat.empty();
+    messages.forEach(msg => {
+      chat.append(`<div class="message ${msg.user === 'You' ? 'user' : 'bot'}">
+                      <strong>${msg.user}:</strong> ${msg.text}
+                   </div>`);
+    });
+    chat.scrollTop(chat[0].scrollHeight);
+  }
+
+  // Simulate receiving a bot message
+  function botReply() {
+    if(messages.length && messages[messages.length-1].user === "You") {
+      setTimeout(() => {
+        messages.push({user: "Bot", text: "This is an automated reply."});
+        displayMessages();
+      }, 1000);
+    }
+  }
+
+  $("#sendBtn").click(function() {
+    let msg = $("#messageInput").val().trim();
+    if(msg === "") return;
+    messages.push({user: "You", text: msg});
+    $("#messageInput").val("");
+    displayMessages();
+    botReply();
+  });
+
+  $("#messageInput").keypress(function(e) {
+    if(e.which === 13) $("#sendBtn").click();
+  });
+});
+</script>
+
+</body>
+</html>

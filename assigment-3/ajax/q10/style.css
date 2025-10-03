@@ -1,0 +1,95 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #121212;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    transition: background 0.5s ease;
+  }
+  
+  .container {
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    padding-top: 50px;
+  }
+  
+  h1 {
+    margin-bottom: 30px;
+  }
+  
+  .search-box {
+    position: relative;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  input {
+    padding: 12px;
+    width: 65%;
+    border-radius: 8px;
+    border: none;
+    background: #333;
+    color: #fff;
+  }
+  
+  input::placeholder {
+    color: #aaa;
+  }
+  
+  button {
+    padding: 12px 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #ff7e5f;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  button:hover {
+    background-color: #feb47b;
+  }
+  
+  .suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #333;
+    color: #fff;
+    width: calc(65% + 10px);
+    max-height: 150px;
+    overflow-y: auto;
+    border-radius: 8px;
+    z-index: 10;
+  }
+  
+  .suggestions div {
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .suggestions div:hover {
+    background: #555;
+  }
+  
+  .weather-result {
+    background: rgba(0,0,0,0.5);
+    padding: 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(5px);
+    margin-top: 20px;
+    transition: background 0.5s ease;
+  }
+  
+  .weather-result img {
+    width: 60px;
+    vertical-align: middle;
+  }
+  

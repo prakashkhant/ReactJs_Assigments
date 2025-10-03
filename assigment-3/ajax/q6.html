@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weather Dashboard - AJAX</title>
+  <link rel="icon" type="image/x-icon" href="../react-icon.svg">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 20px;
+    }
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    #data-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .city {
+      font-size: 18px;
+      font-weight: bold;
+      color: #34495e;
+      margin-bottom: 10px;
+    }
+    .temp {
+      font-size: 20px;
+      color: #e74c3c;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .condition {
+      font-size: 16px;
+      margin-bottom: 5px;
+      color: #2980b9;
+    }
+    .details {
+      font-size: 14px;
+      color: #555;
+    }
+    button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background: #27ae60;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #219150;
+    }
+  </style>
+</head>
+<body>
+  <h2>🌍 Indian Cities Weather Dashboard</h2>
+  <button id="loadWeather">Load Weather Data</button>
+  <div id="data-container"></div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $("#loadWeather").click(function () {
+        $.ajax({
+          url: "weather.json",  // local file with 55 cities
+          type: "GET",
+          dataType: "json",
+          success: function (data) {
+            $("#data-container").empty();
+            data.cities.forEach(city => {
+              $("#data-container").append(`
+                <div class="card">
+                  <div class="city">${city.name}</div>
+                  <div class="temp">${city.temperature}</div>
+                  <div class="condition">${city.condition}</div>
+                  <div class="details">Humidity: ${city.humidity}</div>
+                  <div class="details">Wind: ${city.wind}</div>
+                </div>
+              `);
+            });
+          },
+          error: function () {
+            alert("❌ Could not load weather data!");
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

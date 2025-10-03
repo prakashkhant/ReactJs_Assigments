@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Autocomplete Search - AJAX</title>
+  <link rel="icon" type="image/x-icon" href="../react-icon.svg">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f9fa;
+      padding: 30px;
+    }
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    .search-box {
+      width: 400px;
+      margin: 20px auto;
+      position: relative;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    .suggestions {
+      position: absolute;
+      background: white;
+      border: 1px solid #ccc;
+      border-top: none;
+      width: 100%;
+      max-height: 200px;
+      overflow-y: auto;
+      border-radius: 0 0 6px 6px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+    .suggestions div {
+      padding: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .suggestions div:hover {
+      background: #f1f1f1;
+    }
+  </style>
+</head>
+<body>
+  <h2>🔎 Autocomplete Search</h2>
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Start typing...">
+    <div id="suggestions" class="suggestions"></div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $("#searchInput").on("keyup", function () {
+        let query = $(this).val().trim();
+
+        if (query.length < 2) {
+          $("#suggestions").empty(); // clear if less than 2 letters
+          return;
+        }
+
+        $.ajax({
+          url: "https://api.datamuse.com/sug?s=" + query, // Datamuse API for word suggestions
+          type: "GET",
+          success: function (data) {
+            $("#suggestions").empty();
+
+            if (data.length === 0) {
+              $("#suggestions").append("<div>No results</div>");
+              return;
+            }
+
+            data.slice(0, 8).forEach(item => {
+              $("#suggestions").append(`<div>${item.word}</div>`);
+            });
+
+            // Click to fill input
+            $("#suggestions div").click(function () {
+              $("#searchInput").val($(this).text());
+              $("#suggestions").empty();
+            });
+          },
+          error: function () {
+            $("#suggestions").html("<div>Error fetching results</div>");
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
